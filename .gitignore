@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+data/bioclim/
+output/
+
+*.zip
+*.pdf
+*.html
