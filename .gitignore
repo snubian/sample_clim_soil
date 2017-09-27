@@ -5,6 +5,7 @@
 *.Rproj
 
 data/bioclim/
+data/soil/
 output/
 
 *.zip
