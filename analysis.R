@@ -28,9 +28,7 @@ dataSample <-
   arrange(taxon)
 
 # climate and soil data filenames
-fn <- c(list.files("data/bioclim/", "\\.tif$", full.names = TRUE),
-        list.files("data/soil/", "\\.tif$", full.names = TRUE)
-)
+fn <- c(list.files("output/raster/", "\\.asc$", full.names = TRUE))
 
 # for each file, extract point data from the raster and append column to sample data
 for (f in fn) {
@@ -39,12 +37,12 @@ for (f in fn) {
 
   dataSample %<>%
     dplyr::select(longitude, latitude) %>%
-    extract(f %>% raster, .) %>%
+    raster::extract(f %>% raster, .) %>%
     cbind(dataSample, .)
 
   # give new column a name based on the source raster filename
   colnames(dataSample)[ncol(dataSample)] <-
-    ifelse(grepl("bioclim", f),
+    ifelse(grepl("bio_5m", f),
            basename(f) %>% str_sub(7, -5),
            basename(f) %>% str_sub(1, 3) %>% tolower %>% paste0("soil_", .)
            )
